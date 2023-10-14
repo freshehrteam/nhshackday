@@ -1,0 +1,320 @@
+archetype (adl_version=1.4; uid=dd4aeed1-c320-44aa-833d-b14d12cc49cc)
+	openEHR-EHR-OBSERVATION.cataract_prom_cat5.v0
+
+concept
+	[at0000]
+
+language
+	original_language = <[ISO_639-1::en]>
+
+description
+	original_author = <
+		["date"] = <"2020-05-18">
+		["name"] = <"Alan Fish">
+		["organisation"] = <"Apperta UK">
+		["email"] = <"alan.fish@apperta.org">
+	>
+	lifecycle_state = <"unmanaged">
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To develop a short, psychometrically robust and responsive cataract patient reported outcome measure suitable for use in high-volume surgical environments.">
+			keywords = <"cataract, patient, outcomes", ...>
+			use = <"Used by patients to record answers to six questions relating to vision and quality of life with cataract. ">
+		>
+	>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"Apperta Foundation">
+		["references"] = <"https://www.nodaudit.org.uk/u/docs/30/lmwjzxgocx/PROMs%20by%20J.%20Sparrow.pdf">
+		["current_contact"] = <"Alan Fish <alan.fish@apperta.org>">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"ckm.apperta.org">
+		["MD5-CAM-1.0.1"] = <"743971723f158686ca64f352d01e2d8c">
+		["build_uid"] = <"51562232-2093-3faa-8107-3bf697969f34">
+		["ip_acknowledgements"] = <"Developers: Sparrow JM, Frost NA et al.">
+	>
+
+definition
+	OBSERVATION[at0000] matches {    -- Cataract_PROMs
+		data matches {
+			HISTORY[at0001] matches {    -- History
+				events cardinality matches {0..*; unordered} matches {
+					POINT_EVENT[at0002] occurrences matches {0..*} matches {    -- Point in time
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0006] occurrences matches {0..1} matches {    -- Q1 Overall vision
+										value matches {
+											0|[local::at0007],
+											1|[local::at0008],
+											2|[local::at0009],
+											3|[local::at0010]
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {    -- Q2 General impact on life
+										value matches {
+											0|[local::at0012],
+											1|[local::at0013],
+											2|[local::at0014],
+											3|[local::at0015],
+											4|[local::at0036],
+											5|[local::at0037]
+										}
+									}
+									ELEMENT[at0016] occurrences matches {0..1} matches {    -- Q3 Vision (both eyes open)
+										value matches {
+											0|[local::at0017],
+											1|[local::at0018],
+											2|[local::at0019],
+											3|[local::at0020],
+											4|[local::at0038],
+											5|[local::at0039],
+											6|[local::at0040]
+										}
+									}
+									ELEMENT[at0021] occurrences matches {0..1} matches {    -- Q4 Activity prevention
+										value matches {
+											0|[local::at0022],
+											1|[local::at0023],
+											2|[local::at0024],
+											3|[local::at0025]
+										}
+									}
+									ELEMENT[at0026] occurrences matches {0..1} matches {    -- Q5 Reading difficulty
+										value matches {
+											0|[local::at0027],
+											1|[local::at0028],
+											2|[local::at0029],
+											3|[local::at0030],
+											4|[local::at0041],
+											8|[local::at0042]
+										}
+									}
+									ELEMENT[at0031] occurrences matches {0..1} matches {    -- Q6 Completed by
+										value matches {
+											1|[local::at0033],
+											2|[local::at0034],
+											3|[local::at0035]
+										}
+									}
+									ELEMENT[at0043] occurrences matches {0..1} matches {    -- Total score
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..28|}
+											}
+										}
+									}
+								}
+							}
+						}
+						state matches {
+							ITEM_TREE[at0045] matches {*}    -- Item tree
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0004] matches {    -- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {    -- Extension
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Cataract_PROMs">
+					description = <"A brief psychometrically robust self-report questionnaire instrument for cataract surgery.">
+				>
+				["at0001"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Point in time">
+					description = <"A specific date and/or time which may be explicitly defined in a template or at run-time.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0005"] = <
+					text = <"Extension">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Q1 Overall vision">
+					description = <"Patient reported vision assessment in 'bad eye' during the past month.">
+					comment = <"In the past month, have you felt that your bad eye is affecting or interfering with your vision overall?">
+				>
+				["at0007"] = <
+					text = <"No, never">
+					description = <"The patient stated that their bad eye has not affected their vision overall.">
+				>
+				["at0008"] = <
+					text = <"Yes, some of the time">
+					description = <"The patient stated that their bad eye affected vision some of the time.">
+				>
+				["at0009"] = <
+					text = <"Yes, most of the time">
+					description = <"The patient stated that their bad eye affected vision most of the time.">
+				>
+				["at0010"] = <
+					text = <"Yes, all of the time">
+					description = <"The patient stated that their bad eye affected vision all of the time.">
+				>
+				["at0011"] = <
+					text = <"Q2 General impact on life">
+					description = <"Patient reported how their eyesight has made them feel in the past month.">
+					comment = <"In the past month
+How much has your eyesight interfered with your life in general?">
+				>
+				["at0012"] = <
+					text = <"Not at all">
+					description = <"The patient stated that their eyesight has not interfered with their life in general.">
+				>
+				["at0013"] = <
+					text = <"Hardly at all">
+					description = <"The patient stated that their eyesight has hardly interfered with their life in general.">
+				>
+				["at0014"] = <
+					text = <"A little">
+					description = <"The patient stated that their eyesight had interfered a little with their life in general.">
+				>
+				["at0015"] = <
+					text = <"A fair amount">
+					description = <"The patient stated that their eyesight had interfered a fair amount with their life in general.">
+				>
+				["at0016"] = <
+					text = <"Q3 Vision (both eyes open)">
+					description = <"Patient reported vision overall assessment during the past month.">
+					comment = <"How would you describe your vision overall in the past month - with both eyes open, wearing glasses or contact lenses if you usually do?">
+				>
+				["at0017"] = <
+					text = <"Excellent">
+					description = <"The patient stated that their vision was excellent in the past month.">
+				>
+				["at0018"] = <
+					text = <"Very good">
+					description = <"The patient stated that their vision was very good in the past month.">
+				>
+				["at0019"] = <
+					text = <"Quite good">
+					description = <"The patient stated that their vision was quite good in the past month.">
+				>
+				["at0020"] = <
+					text = <"Average">
+					description = <"The patient stated that their vision was average in the past month.">
+				>
+				["at0021"] = <
+					text = <"Q4 Activity prevention">
+					description = <"Patient reported their vision had prevented them from doing things they like to do during the past month.">
+					comment = <"In the past month, how often has your eyesight prevented you from doing the things you would like to do?">
+				>
+				["at0022"] = <
+					text = <"Never">
+					description = <"The patient stated that their vision had never prevented them from doing the things they like to do.">
+				>
+				["at0023"] = <
+					text = <"Some of the time">
+					description = <"The patient stated that their vision had prevented them from doing the things they like to do some of the time.">
+				>
+				["at0024"] = <
+					text = <"Most of the time">
+					description = <"The patient stated that their vision had prevented them from doing the things they like to do most of the time.">
+				>
+				["at0025"] = <
+					text = <"All of the time">
+					description = <"The patient stated that their vision had prevented them from doing the things they like to do all of the time.">
+				>
+				["at0026"] = <
+					text = <"Q5 Reading difficulty">
+					description = <"Patient reported reading difficulty during the past month.">
+					comment = <"In the past month, have you had difficulty reading normal print in books or newspapers because of trouble with your eyesight?">
+				>
+				["at0027"] = <
+					text = <"No difficulty">
+					description = <"The patient stated that they had no difficulty reading in the past month.">
+				>
+				["at0028"] = <
+					text = <"Yes, a little difficulty">
+					description = <"The patient stated that they had a little difficulty reading in the past month.">
+				>
+				["at0029"] = <
+					text = <"Yes, some difficulty">
+					description = <"The patient stated that they had some difficulty reading in the past month.">
+				>
+				["at0030"] = <
+					text = <"Yes, a great deal of difficulty">
+					description = <"The patient stated that they had a great deal of difficulty reading in the past month.">
+				>
+				["at0031"] = <
+					text = <"Q6 Completed by">
+					description = <"Record of who completed the results of the questionnaire.">
+					comment = <"Please tell us who actually gave the answers to the questions and who wrote them down.">
+				>
+				["at0033"] = <
+					text = <"I gave all the answers and wrote them down myself">
+					description = <"Patient completed the assessment themselves.">
+				>
+				["at0034"] = <
+					text = <"I gave all the answers and someone else wrote them down as I spoke">
+					description = <"Patient gave answers to someone else who completed the assessment on their behalf.">
+				>
+				["at0035"] = <
+					text = <"A friend or relative gave some of the answers on my behalf">
+					description = <"The assessment was completed by a third party.">
+				>
+				["at0036"] = <
+					text = <"A lot">
+					description = <"The patient stated that their eyesight had interfered a lot with their life in general.">
+				>
+				["at0037"] = <
+					text = <"An extremely large amount">
+					description = <"The patient stated that their eyesight had interfered an extremely large amount with their life in general.">
+				>
+				["at0038"] = <
+					text = <"Quite poor">
+					description = <"The patient stated that their vision was quite poor in the past month.">
+				>
+				["at0039"] = <
+					text = <"Very poor">
+					description = <"The patient stated that their vision was very poor in the past month.">
+				>
+				["at0040"] = <
+					text = <"Appalling">
+					description = <"The patient stated that their vision was appalling in the past month.">
+				>
+				["at0041"] = <
+					text = <"I cannot read any more because of my eyesight">
+					description = <"The patient stated that they cannot read any more due to their eye site.">
+				>
+				["at0042"] = <
+					text = <"I cannot read because of other reasons">
+					description = <"The patient stated that they cannot read any more due to other reasons.">
+				>
+				["at0043"] = <
+					text = <"Total score">
+					description = <"The total score of the six questions.">
+				>
+				["at0045"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+			>
+		>
+	>
